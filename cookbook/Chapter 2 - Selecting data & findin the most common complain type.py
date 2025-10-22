@@ -15,7 +15,9 @@ complaints.head()
 # you cannot exactly do the same in Polars but you can read about some other solutions here:
 # see a discussion about dtype argument here: https://github.com/pola-rs/polars/issues/8230
 
+# used infer_scheme_length solution from above
 pl_complaints = pl.read_csv("../data/311-service-requests.csv", infer_schema_length=0)
+# can use same command
 pl_complaints.head()
 
 # %%
@@ -24,6 +26,7 @@ complaints["Complaint Type"]
 
 # %%
 # TODO: rewrite the above using the polars library
+# use select command instead
 pl_complaints.select("Complaint Type")
 
 # %%
@@ -32,6 +35,7 @@ complaints[:5]
 
 # %%
 # TODO: rewrite the above using the polars library
+# can use same command
 pl_complaints[:5]
 
 # %%
@@ -40,6 +44,7 @@ complaints["Complaint Type"][:5]
 
 # %%
 # TODO: rewrite the above using the polars library
+# use select commnd for column, use same command for rows
 pl_complaints.select("Complaint Type")[:5]
 
 # %%
@@ -48,6 +53,7 @@ complaints[["Complaint Type", "Borough"]]
 
 # %%
 # TODO: rewrite the above using the polars library
+# can use select command with a list for multiple columns
 pl_complaints.select(["Complaint Type", "Borough"])
 
 # %%
@@ -57,7 +63,9 @@ complaint_counts[:10]
 
 # %%
 # TODO: rewrite the above using the polars library
+# to match pandas, use group_by and len, but also sort by length in descending order
 pl_complaint_counts = pl_complaints.select("Complaint Type").group_by(pl.all()).len().sort("len", descending=True)
+# can use same command
 pl_complaint_counts[:10]
 
 # %%
