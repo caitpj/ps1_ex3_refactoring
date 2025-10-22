@@ -32,7 +32,7 @@ complaints[:5]
 
 # %%
 # TODO: rewrite the above using the polars library
-pl_complaints.head(5)
+pl_complaints[:5]
 
 # %%
 # Combine these to get the first 5 rows of a column:
@@ -40,7 +40,7 @@ complaints["Complaint Type"][:5]
 
 # %%
 # TODO: rewrite the above using the polars library
-pl_complaints.select("Complaint Type").head(5)
+pl_complaints.select("Complaint Type")[:5]
 
 # %%
 # Selecting multiple columns
@@ -54,26 +54,23 @@ pl_complaints.select(["Complaint Type", "Borough"])
 # What's the most common complaint type?
 complaint_counts = complaints["Complaint Type"].value_counts()
 complaint_counts[:10]
-print(complaint_counts[:10])
 
 # %%
 # TODO: rewrite the above using the polars library
-pl_complaint_counts = pl_complaints.select("Complaint Type").value_counts()
-print(pl_complaint_counts.head(10))
+pl_complaint_counts = pl_complaints.select("Complaint Type").group_by(pl.all()).len().sort("len", descending=True)
+pl_complaint_counts[:10]
 
 # %%
 # Plot the top 10 most common complaints
-# complaint_counts[:10].plot(kind="bar")
-# plt.title("Top 10 Complaint Types")
-# plt.xlabel("Complaint Type")
-# plt.ylabel("Count")
-# plt.xticks(rotation=45, ha="right")
-# plt.tight_layout()
-# plt.show()
+complaint_counts[:10].plot(kind="bar")
+plt.title("Top 10 Complaint Types")
+plt.xlabel("Complaint Type")
+plt.ylabel("Count")
+plt.xticks(rotation=45, ha="right")
+plt.tight_layout()
+plt.show()
 
 # %%
 # TODO: please do the same with Polars
-'''
-df_pl = pl_complaint_counts.head(10)
-df_pl.plot.bar(x="Complaint Type", y="Count")
-'''
+# pl_complaint_counts[:10].plot.bar(x="Complaint Type", y="Count")
+# df_pl.plot.bar(x="Complaint Type", y="Count")
