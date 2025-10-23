@@ -80,5 +80,11 @@ plt.show()
 
 # %%
 # TODO: please do the same with Polars
-# pl_complaint_counts[:10].plot.bar(x="Complaint Type", y="Count")
-# df_pl.plot.bar(x="Complaint Type", y="Count")
+
+plt.bar(x="Complaint Type", data = pl_complaint_counts[:10], height = "len")
+plt.title("Top 10 Complaint Types")
+plt.xlabel("Complaint Type")
+plt.ylabel("Count")
+plt.xticks(rotation=45, ha="right")
+plt.tight_layout()
+plt.show()
