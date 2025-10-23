@@ -80,8 +80,13 @@ plt.show()
 
 # %%
 # TODO: please do the same with Polars
-
+# can use matplotlib with polars dataframe
+# set up bar plot differently to above
+# specifying the x axes
+# specify the polars dataframe (just the first 10 rows)
+# specify the height being the count (created from len)
 plt.bar(x="Complaint Type", data = pl_complaint_counts[:10], height = "len")
+# all other lines can remain the same
 plt.title("Top 10 Complaint Types")
 plt.xlabel("Complaint Type")
 plt.ylabel("Count")
